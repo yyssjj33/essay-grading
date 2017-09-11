@@ -13,7 +13,6 @@ class App extends Component {
         <div className="container">
           <div className="pingfenqu">
             <Tiyibiaoda />
-            <Tiyibiaoda />
             <div style={{height:300}}></div>
           </div>
           <div className="zuowenqu">
