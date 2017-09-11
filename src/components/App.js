@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Tiyibiaoda from './tiyibiaoda/tiyibiaoda.js'
+import Tiyibiaoda from './tiyibiaoda/tiyibiaoda.js';
+import Zuowenqu from './zuowen/zuowenqu.js';
 import '../style/App.css';
 
 class App extends Component {
@@ -10,7 +11,14 @@ class App extends Component {
           <h2>作文评分小程序</h2>
         </div>
         <div className="container">
-          <Tiyibiaoda />
+          <div className="pingfenqu">
+            <Tiyibiaoda />
+            <Tiyibiaoda />
+            <div style={{height:300}}></div>
+          </div>
+          <div className="zuowenqu">
+            <Zuowenqu />
+          </div>
         </div>
       </div>
     );
