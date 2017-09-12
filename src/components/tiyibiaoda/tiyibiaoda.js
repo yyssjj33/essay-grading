@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {tiyibiaodaActions} from '../../reducers/tiyibiaoda.js';
 
 class Tiyibiaoda extends Component {
 
     constructor(props) { 
       super(props);
       this.state = {
-        zhibaiOrHanxu: null,
         zhengqueOrCuowu: null,
         tiyifangshi: null,
         tiyifangshiQita: '',
@@ -26,54 +28,53 @@ class Tiyibiaoda extends Component {
     }
 
     handleZhibaiOrHanxu(e) {
-      const zhibaiOrHanxu = e.target.value;
-      this.setState({zhibaiOrHanxu});
+      this.props.changeZhibaiOrHanxu(e.target.value);
     }
 
     handleZhengqueOrCuowu(e) {
-      this.setState({zhengqueOrCuowu: e.target.value});
+      this.props.changeZhengqueOrCuowu(e.target.value);
     }
 
     handleZhibaiTiyijuzi(e) {
-      this.setState({zhibaiTiyijuzi: e.target.value});
+      this.props.changeZhibaiTiyijuzi(e.target.value);
     }
 
     handleHanxuTiyijuzi(e) {
-      this.setState({hanxuTiyijuzi: e.target.value});
+       this.props.changeHanxuTiyijuzi(e.target.value);
     }
 
     handleHanxubiaodafangshi(e) {
-      this.setState({tiyifangshi: e.target.value});
+      this.props.changeTiyifangshi(e.target.value);
     }
 
     handleQita(e) {
-      this.setState({tiyifangshiQita: e.target.value});
+      this.props.changeTiyifangshiQita(e.target.value);
     }
 
     handleDuanshu(e) {
-      this.setState({duanshu: e.target.value});
+     this.props.changeDuanshu(e.target.value);
     }
 
     handleHangshu(e) {
-      this.setState({hangshu: e.target.value});
+      this.props.changeHangshu(e.target.value);
     }
 
     parseQ23(zhibaiOrHanxu) {
-      const {tiyifangshi, hanxuTiyijuzi, zhibaiTiyijuzi} = this.state;
+      const {tiyifangshi, tiyifangshiQita, hanxuTiyijuzi, zhibaiTiyijuzi, duanshu, hangshu} = this.props.tiyibiaoda;
       if (zhibaiOrHanxu === 'zhibai') {
         return (
           <div>
             <div>
               <p>2.本文直白表达题意的语句是：</p>
-              <textarea rows="4" cols="50" ref={(ta)=>{this.zbjz=ta}} 
+              <textarea rows="4" cols="50"
                 placeholder="输入表达题意的原文" onChange={this.handleZhibaiTiyijuzi}
                 value={zhibaiTiyijuzi}
               />
             </div>
             <div>
               <p>3.本文直白表达题意的语句的位置：</p>
-              <input type="number" min="0" value={this.state.duanshu} onChange={this.handleDuanshu}/> {'段'} 
-              <input type="number" min="0" value={this.state.hangshu} onChange={this.handleHangshu}/> {'行'}
+              <input type="number" min="0" value={duanshu} onChange={this.handleDuanshu}/> {'段'} 
+              <input type="number" min="0" value={hangshu} onChange={this.handleHangshu}/> {'行'}
             </div>
           </div>
         );
@@ -83,7 +84,7 @@ class Tiyibiaoda extends Component {
           <div>
             <div>
               <p>2.本文以含蓄的方式表达的题意是：（概括表述）</p>
-              <textarea rows="4" cols="50"  ref={(ta)=>{this.hxjz=ta}}
+              <textarea rows="4" cols="50"
                 placeholder="阅卷者用自己的话概括表述" onChange={this.handleHanxuTiyijuzi}
                 value={hanxuTiyijuzi}
               />
@@ -98,8 +99,8 @@ class Tiyibiaoda extends Component {
                 <input type="radio" id="yuli" name="q3" checked={tiyifangshi==="yuli"} value="yuli" onChange={()=>{}}/>
                 <label htmlFor="yuli">以事寓理</label>
               </div>
-              <label htmlFor="qita">{'   '} 其他</label>
-              <input type="text" id="qita" placeholder="补出其他方式" value={this.state.tiyifangshiQita} onChange={this.handleQita}/>
+              <label htmlFor="qita">{'   '} 其他:</label>
+              <input type="text" id="qita" placeholder="补出其他方式" value={tiyifangshiQita} onChange={this.handleQita}/>
             </div>
           </div>
         );
@@ -107,7 +108,7 @@ class Tiyibiaoda extends Component {
     }
 
     render() {
-      const {zhibaiOrHanxu, zhengqueOrCuowu} = this.state;
+      const {zhibaiOrHanxu, zhengqueOrCuowu} = this.props.tiyibiaoda;
       return (
         <div>
           <h2>题意表达</h2>
@@ -131,7 +132,7 @@ class Tiyibiaoda extends Component {
             <div onChange={this.handleZhengqueOrCuowu}>
               <input type="radio" id="zhengque" name="q4" value="zhengque" checked={zhengqueOrCuowu==="zhengque"} onChange={()=>{}}/>
               <label htmlFor="zhengque">正确</label>
-              <input type="radio" id="cuowo" name="q4" value="cuowu" checked={zhengqueOrCuowu==="cuowu"} onChange={()=>{}}/>
+              <input type="radio" id="cuowu" name="q4" value="cuowu" checked={zhengqueOrCuowu==="cuowu"} onChange={()=>{}}/>
               <label htmlFor="cuowu">错误</label>
             </div>
           </div>
@@ -141,4 +142,23 @@ class Tiyibiaoda extends Component {
 
 }
 
-export default Tiyibiaoda;
+const mapStateToProps = (state) => {
+  return {
+    tiyibiaoda: state.tiyibiaoda
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeZhibaiOrHanxu: bindActionCreators(tiyibiaodaActions.changeZhibaiOrHanxu, dispatch),
+    changeZhengqueOrCuowu: bindActionCreators(tiyibiaodaActions.changeZhengqueOrCuowu, dispatch),
+    changeZhibaiTiyijuzi: bindActionCreators(tiyibiaodaActions.changeZhibaiTiyijuzi, dispatch),
+    changeHangshu: bindActionCreators(tiyibiaodaActions.changeHangshu, dispatch),
+    changeDuanshu: bindActionCreators(tiyibiaodaActions.changeDuanshu, dispatch),
+    changeHanxuTiyijuzi: bindActionCreators(tiyibiaodaActions.changeHanxuTiyijuzi, dispatch),
+    changeTiyifangshi: bindActionCreators(tiyibiaodaActions.changeTiyifangshi, dispatch),
+    changeTiyifangshiQita: bindActionCreators(tiyibiaodaActions.changeTiyifangshiQita, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tiyibiaoda);
