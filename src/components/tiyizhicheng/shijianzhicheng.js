@@ -13,7 +13,7 @@ class Shijianzhicheng extends Component {
     this.handleChangeShijian = this.handleChangeShijian.bind(this);
     this.handleChangeShilishishi = this.handleChangeShilishishi.bind(this);
     this.handleChangeShili = this.handleChangeShili.bind(this);
-    this.changeShifouyizhi = this.changeShifouyizhi.bind(this);
+    this.handleChangeShifouyizhi = this.handleChangeShifouyizhi.bind(this);
   }
 
   handleAddShijian() {
@@ -40,17 +40,19 @@ class Shijianzhicheng extends Component {
     this.props.changeShili(e.target.value, k);
   }
 
-  changeShifouyizhi(e, k) {
+  handleChangeShifouyizhi(e, k) {
     this.props.changeShifouyizhi(e.target.value, k);
   }
 
   parseShijianList() {
     const {shijianzhicheng} = this.props;
     const list = [];
+    let i = 0;
     _.forOwn(shijianzhicheng, (v, k) => {
+      i = list.length+1;
       list.push (
         <div key={k} className="shijianzhicheng-card">
-          <h4>{`事件支撑 ${list.length+1}`}</h4>
+          <h4>{`事件支撑 ${i}`}</h4>
           <button className="shijianzhicheng-delete-button" onClick={(e) => this.handleDeleteShijian(e, k)}>X</button>
           <div>
             <p>人物: </p>
@@ -81,13 +83,13 @@ class Shijianzhicheng extends Component {
             />
           </div>
           <p>事件蕴含的事理与题意包含的事理是否一致: </p>
-          <div onChange={(e) => this.changeShifouyizhi(e, k)}>
-            <input type="radio" id="yizhi" name="q9" checked={v.shifouyizhi==="yizhi"} value="yizhi" onChange={()=>{}}/>
-            <label htmlFor="yizhi">一致</label>
-            <input type="radio" id="youdian" name="q9" checked={v.shifouyizhi==="youdianguanlian"} value="youdianguanlian" onChange={()=>{}}/>
-            <label htmlFor="youdian">有点关联</label>
-            <input type="radio" id="meiyou" name="q9" checked={v.shifouyizhi==="meiyouguanxi"} value="meiyouguanxi" onChange={()=>{}}/>
-            <label htmlFor="meiyou">没有关系</label>
+          <div onChange={(e) => this.handleChangeShifouyizhi(e, k)}>
+            <input type="radio" id={`yizhi9-${i}`} name={`q9-${i}`} checked={v.shifouyizhi==="yizhi"} value="yizhi" onChange={()=>{}}/>
+            <label htmlFor={`yizhi9-${i}`}>一致</label>
+            <input type="radio" id={`youdian9-${i}`} name={`q9-${i}`} checked={v.shifouyizhi==="youdianguanlian"} value="youdianguanlian" onChange={()=>{}}/>
+            <label htmlFor={`youdian9-${i}`}>有点关联</label>
+            <input type="radio" id={`meiyou9-${i}`} name={`q9-${i}`} checked={v.shifouyizhi==="meiyouguanxi"} value="meiyouguanxi" onChange={()=>{}}/>
+            <label htmlFor={`meiyou9-${i}`}>没有关系</label>
           </div>
         </div>
       );
@@ -96,13 +98,12 @@ class Shijianzhicheng extends Component {
   }
 
   render() {
-    console.log(this.props);
     const shijianList = this.parseShijianList();
     return (
       <div>
-        <h2>题意支撑</h2>
-        <button onClick={this.handleAddShijian}>添加事件支撑</button>
+        <p>{`(一) 事件支撑`}</p>
         {shijianList}
+        <button onClick={this.handleAddShijian}>添加事件支撑</button>
       </div>
     );
   }

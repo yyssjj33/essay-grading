@@ -28,6 +28,7 @@
 
 .zuowenqu {
   flex: 1;
+  overflow-y: scroll;
   padding: 30px;
   height:100vh;
 }
@@ -45,6 +46,26 @@
   width: 80%;
 }
 .shijianzhicheng-delete-button {
+  position: absolute;
+  right: 10px;
+  top: 25px;
+}
+
+.daolizhicheng-card {
+  border: 1px solid lightgray;
+  position: relative;
+  padding: 0 10px 10px 10px;
+  margin: 10px 10px 10px 0;
+}
+
+.daolizhicheng-card p, label{
+  font-size: small;
+}
+.daolizhicheng-card div textarea {
+  width: 80%;
+}
+
+.daolizhicheng-delete-button {
   position: absolute;
   right: 10px;
   top: 25px;
