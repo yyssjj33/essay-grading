@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tiyibiaoda from './tiyibiaoda/tiyibiaoda.js';
+import Shijianzhicheng from './tiyizhicheng/shijianzhicheng.js';
 import Zuowenqu from './zuowen/zuowenqu.js';
 import '../style/App.css';
 
@@ -13,6 +14,7 @@ class App extends Component {
         <div className="container">
           <div className="pingfenqu">
             <Tiyibiaoda />
+            <Shijianzhicheng />
             <div style={{height:300}}></div>
           </div>
           <div className="zuowenqu">

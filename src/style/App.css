@@ -32,6 +32,23 @@
   height:100vh;
 }
 
+.shijianzhicheng-card {
+  border: 1px solid lightgray;
+  position: relative;
+  padding: 0 10px 10px 10px;
+  margin: 10px 10px 10px 0;
+}
+.shijianzhicheng-card p, label{
+  font-size: small;
+}
+.shijianzhicheng-card div textarea {
+  width: 80%;
+}
+.shijianzhicheng-delete-button {
+  position: absolute;
+  right: 10px;
+  top: 25px;
+}
 
 textarea {
     resize: none;
