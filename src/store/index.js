@@ -29,6 +29,7 @@ if (ls) {
   }
 }
 
+
 const store = createStore(rootReducer, persistedState);
 window.store = store;
 store.subscribe(_.debounce(() => {
