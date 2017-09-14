@@ -25,7 +25,12 @@ class Shijianzhicheng extends Component {
   }
 
   handleDeleteShijian(e, k) {
-    this.props.deleteShijian(k);
+    var r = window.confirm("确定要删除该事件吗？");
+    if (r == true) {
+        this.props.deleteShijian(k);
+    } else {
+        return
+    } 
   }
 
   handleChangeShijian(e, k) {

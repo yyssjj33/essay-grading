@@ -23,7 +23,12 @@ class Daolizhicheng extends Component {
   }
 
   handleDeleteDaoli(e, k) {
-    this.props.deleteDaoli(k);
+    var r = window.confirm("确定要删除该道理吗？");
+    if (r == true) {
+         this.props.deleteDaoli(k);
+    } else {
+        return
+    } 
   }
 
   handleChangeShili(e, k) {
